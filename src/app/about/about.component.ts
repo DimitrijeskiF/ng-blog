@@ -1,3 +1,5 @@
+import { SharedService } from './../shared.service';
+import { Title } from '@angular/platform-browser';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AboutComponent implements OnInit {
 
-  constructor() { }
+  title = 'About';
+
+  constructor(
+    private titleService: Title,
+    private sharedService: SharedService
+  ) { }
 
   ngOnInit(): void {
+    this.titleService.setTitle(`${this.title} - ${this.sharedService.blogTitle}`);
   }
 
 }
