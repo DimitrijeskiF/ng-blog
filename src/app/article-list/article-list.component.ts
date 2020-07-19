@@ -9,13 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ArticleListComponent implements OnInit {
 
- article: Article[] = [];
+  articles: Article[] = [];
 
   constructor() { }
 
   ngOnInit(): void {
-    this.article = ARTICLES;
-    console.log(this.article);
+    this.articles = ARTICLES;
+    console.log(this.articles);
   }
 
 }
