@@ -3,7 +3,7 @@ import { ArticleService } from './../article.service';
 import { Component, OnInit } from '@angular/core';
 import { Article } from '../article';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Title } from '@angular/platform-browser';
+import { Title, Meta } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-article',
@@ -19,7 +19,8 @@ export class ArticleComponent implements OnInit {
     private articleService: ArticleService,
     private router: Router,
     private titleService: Title,
-    private sharedService: SharedService  ) { }
+    private sharedService: SharedService,
+    private meta: Meta  ) { }
 
   ngOnInit(): void {
     this.route.params
@@ -32,7 +33,35 @@ export class ArticleComponent implements OnInit {
               return;
             }
             this.article = article;
-            this.titleService.setTitle(`${this.article.title} - ${this.sharedService.blogTitle}`);
+            this.titleService.setTitle(`${this.article.title} - ${this.sharedService.blogTitle}`
+            );
+            this.meta.addTags([
+              {name: 'description', content: this.article.decription},
+              {
+                property: 'og:title',
+                 content: `${this.article.title} - ${this.sharedService.blogTitle}`
+              },
+              {
+                property: 'og:type',
+                content: 'website'
+              },
+              {
+                property: 'og:url',
+                content: this.sharedService.baseUrl + this.article.key
+              },
+              {
+                property: 'og:image',
+                content: this.article.imageUrl
+              },
+              {
+                property: 'og:description',
+                content: this.article.decription
+              },
+              {
+                property: 'og:site_name',
+                content: this.sharedService.blogTitle
+              },
+            ]);
           });
       });
   }
